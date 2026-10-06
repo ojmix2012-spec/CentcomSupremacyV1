@@ -53,7 +53,7 @@ with st.form("strategy_analysis", clear_on_submit=False):
     )
 
 if submitted:
-    api_key = os.getenv("GEMINI_API_KEY")
+  api_key = st.secrets.get("GEMINI_API_KEY", "") or os.getenv("GEMINI_API_KEY", "")
     if not api_key:
         st.error("Falta GEMINI_API_KEY. Añádela en Secrets del proyecto y vuelve a intentarlo.")
     elif screenshot is None:
