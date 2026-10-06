@@ -54,8 +54,15 @@ with st.form("strategy_analysis", clear_on_submit=False):
 
 if submitted:
   api_key = st.secrets.get("GEMINI_API_KEY", "") or os.getenv("GEMINI_API_KEY", "")
-    if not api_key:
-        st.error("Falta GEMINI_API_KEY. Añádela en Secrets del proyecto y vuelve a intentarlo.")
+    import streamlit as st
+import google.generativeai as genai
+api_key = st.secrets.get("GEMINI_API_KEY")
+if not api_key:
+    st.error("Falta GEMINI_API_KEY. Ve a Settings > Secrets en Streamlit y agrégala")
+    st.stop()
+    
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel("gemini-1.5-flash")
     elif screenshot is None:
         st.error("Sube una captura del mapa para iniciar el análisis.")
     else:
