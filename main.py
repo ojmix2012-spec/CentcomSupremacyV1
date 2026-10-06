@@ -102,11 +102,9 @@ if submitted:
             }
         except ValueError as exc:
             st.error(str(exc))
-        except Exception:
-            st.error(
-                "No se pudo completar el análisis. Comprueba tu clave de Gemini, la cuota de la cuenta "
-                "y que la imagen o los datos sean válidos; después vuelve a intentarlo."
-            )
+       except Exception as exc:
+    st.error(f"No se pudo completar el análisis: {exc}")
+    st.exception(exc)
 
 report_state = st.session_state.get("supremacy_report")
 if report_state:
